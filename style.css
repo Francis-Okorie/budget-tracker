@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+.container{
+    font-family: "Josefin Sans", serif;
+}
+
+.budget-container{
+    margin-top: 5rem;
+}
+
+input {
+    padding: .4rem .8rem;
+    outline: none;
+    border: 1px solid gray;
+    font-family: "Josefin Sans", serif;
+}
+
+::placeholder{
+    font-size: .8rem;
+    font-weight: 300;
+}
+
+.budget-container h1{
+    font-family: "Josefin Sans", serif;
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+
+.budget-container p {
+    font-weight: 300;
+    font-size: .8rem;
+}
+
+.budget-container button{
+    background-color: #587ef4;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 12px;
+    padding: .3rem 1rem .2rem 1rem;
+    font-weight: 400;
+}
+
+.budget-content,
+.expense-content{
+    box-shadow: 0 0.6em 1.2em rgba(28, 0, 80, 0.135);
+    padding: 2rem;
+}
+
+.budget-amount {
+    background-color: #00d44e2c;
+}
+
+.expense-amount{
+    background-color: #ffbf0025;
+}
+
+.balance-amount {
+    background-color: #004e891a;
+}
+
+
+.budget-amount,
+.expense-amount,
+.balance-amount{
+    padding: 2rem;
+}
+
+.budget-amount h3,
+.expense-amount h3,
+.balance-amount h3{
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.budget-amount p,
+.expense-amount p,
+.balance-amount p{
+    font-size: .8rem;
+    font-weight: 400;
+}
+
+.budget-dashboard {
+    background-color: rgba(128, 128, 128, 0.11);
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.budget-input {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+@media screen and (min-width:770px) {
+    .container{
+        display: flex;
+        justify-content: center;
+    }
+    .budget-container{
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        
+    }
+
+    .expense-input {
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+
+    .budget-dashboard {
+        display: flex;
+        flex-direction: row;
+        gap: 5rem;
+    }
+
+    .budget-amount,
+    .expense-amount,
+    .balance-amount{
+        display: flex;
+        flex-direction: row;
+        gap: .8rem;
+    }
+
+}
+
+@media screen and (max-width:770px){
+    .budget-dashboard {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .budget-container {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .expense-input {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .budget-container input{
+        width: 100%;
+    }
+}
