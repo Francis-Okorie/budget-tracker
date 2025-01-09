@@ -100,6 +100,16 @@ input {
     gap: 1rem;
 }
 
+.display-details {
+    display: flex;
+}
+
+.budget-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 
 @media screen and (min-width:770px) {
     .container{
@@ -113,7 +123,7 @@ input {
         
     }
 
-    .expense-input {
+    .flex-expense-input {
         display: flex;
         flex-direction: row;
         gap: 1.5rem;
@@ -133,6 +143,11 @@ input {
         gap: .8rem;
     }
 
+    .display-details{
+        flex-direction: row;
+        gap: 6rem;
+    }
+
 }
 
 @media screen and (max-width:770px){
@@ -148,7 +163,7 @@ input {
         gap: 3rem;
     }
 
-    .expense-input {
+    .flex-expense-input {
         display: flex;
         flex-direction: column;
         gap: 2rem;
