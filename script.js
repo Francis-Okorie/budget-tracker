@@ -68,12 +68,12 @@ productAddBtn.addEventListener("click", ()=>{
 
     totalBalance();
 
-    /*
+    
     editBtn.addEventListener("click", ()=>{
         console.log(totalValue);
-        let updatedProductName = prompt("Enter new product name:", updatedNewName);
+        let updatedProductName = prompt("Enter new product name:", newProductName);
         let updatedProductPrice = parseFloat(
-            prompt("Enter new product price:", updatedNewPrice)
+            prompt("Enter new product price:", newProductPrice)
         );
         if (!isNaN(updatedProductPrice) && updatedProductPrice >= 0) {
             totalProductPrice -= newProductPrice; // Subtract the old price
@@ -90,8 +90,8 @@ productAddBtn.addEventListener("click", ()=>{
         } else {
             alert("Invalid product price!");
         }
-    }); */
-    
+    }); 
+
 });
 
 function totalBalance(){
