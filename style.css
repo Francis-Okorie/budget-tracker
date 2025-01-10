@@ -106,8 +106,27 @@ input {
 
 .budget-detail-container {
     display: flex;
+    align-items: center;
     flex-direction: column;
     gap: 2rem;
+}
+
+.display-details p {
+    padding-top: 1.5rem;
+    text-transform: capitalize;
+}
+
+.main-add-btn {
+    margin-top: 1rem;
+}
+
+.budget-details {
+    font-family: "Josefin Sans", serif;
+    margin-top: 2rem;
+}
+
+.budget-details h1 {
+    text-align: center;
 }
 
 
@@ -171,5 +190,11 @@ input {
 
     .budget-container input{
         width: 100%;
+    }
+
+    .display-details {
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
     }
 }
