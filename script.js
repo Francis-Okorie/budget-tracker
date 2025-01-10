@@ -7,6 +7,7 @@ const productNameInput =document.querySelector(".product-name-input");
 const productPriceInput = document.querySelector(".product-price-input");
 const budgetDetailContainer = document.querySelector(".budget-detail-container");
 
+
 let totalValue = 0;
 let totalProductPrice = 0;
 
@@ -14,21 +15,24 @@ budgetAddBtn.addEventListener("click", ()=>{
     let newBudgetInput = parseFloat(budgetInput.value.trim());
     if(newBudgetInput ==="" || isNaN(newBudgetInput)){
         let errorMsg = budgetContainer.querySelector(".error");
+        errorMsg.classList.add("show");
         errorMsg.style.color="red"
     
         setTimeout(() => {
             errorMsg.classList.remove("show");
-            errorMsg.textContent = ""; // Optionally clear the text
+            errorMsg.textContent = ""; 
         }, 3000);
     }else {
         totalValue += newBudgetInput;
         budgetInput.value ="";
     }
     
-    budgetNumber.textContent = totalValue;
+    budgetNumber.textContent = `$${totalValue}`;
+    totalBalance();
 });
 
 productAddBtn.addEventListener("click", ()=>{
+    
     let newProductName = productNameInput.value.trim();
     let newProductPrice = productPriceInput.value.trim();
 
@@ -50,14 +54,50 @@ productAddBtn.addEventListener("click", ()=>{
     displayDetail.appendChild(editBtn);
     displayDetail.appendChild(deleteBtn);
     budgetDetailContainer.appendChild(displayDetail);
+    
+    
+    const totalDisplayElement = document.querySelector(".total-expense-value");
+    console.log(productPriceInput.value)
+    totalProductPrice += parseFloat(productPriceInput.value.trim());
+    console.log();
+    
+    totalDisplayElement.innerHTML = `$${totalProductPrice}`;
 
-    totalProductPrice += newProductPrice;
-    updateTotalDisplay();
+    productNameInput.value="";
+    productPriceInput.value="";
+
+    totalBalance();
+
+    /*
+    editBtn.addEventListener("click", ()=>{
+        console.log(totalValue);
+        let updatedProductName = prompt("Enter new product name:", updatedNewName);
+        let updatedProductPrice = parseFloat(
+            prompt("Enter new product price:", updatedNewPrice)
+        );
+        if (!isNaN(updatedProductPrice) && updatedProductPrice >= 0) {
+            totalProductPrice -= newProductPrice; // Subtract the old price
+            totalProductPrice += updatedProductPrice; // Add the new price
+
+            productNameElement.innerHTML = updatedProductName;
+            productPriceElement.innerHTML = `$${updatedProductPrice.toFixed(2)}`;
+
+            newProductName = updatedProductName; // Update reference
+            newProductPrice = updatedProductPrice; // Update reference
+
+            totalDisplayElement.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+            totalBalance();
+        } else {
+            alert("Invalid product price!");
+        }
+    }); */
     
 });
 
-
-function updateTotalDisplay() {
-    const totalDisplayElement = document.querySelector(".total-expense-value");
-    totalDisplayElement.innerHTML = `$${totalProductPrice}`;
+function totalBalance(){
+    const totalBalanceElement = document.querySelector(".total-balance");
+    totalBalanceElement.innerHTML = totalValue - totalProductPrice ;
 }
+
+totalBalance
+
