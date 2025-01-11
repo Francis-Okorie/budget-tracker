@@ -6,6 +6,8 @@ const productAddBtn = document.querySelector(".main-add-btn");
 const productNameInput =document.querySelector(".product-name-input");
 const productPriceInput = document.querySelector(".product-price-input");
 const budgetDetailContainer = document.querySelector(".budget-detail-container");
+const displayDetailDiv = document.querySelector(".display-details");
+const budgetDashBoard = document.querySelector(".budget-dashboard");
 
 
 let totalValue = 0;
@@ -29,6 +31,7 @@ budgetAddBtn.addEventListener("click", ()=>{
     
     budgetNumber.textContent = `$${totalValue}`;
     totalBalance();
+    saveDashBoard();
 });
 
 productAddBtn.addEventListener("click", ()=>{
@@ -45,9 +48,12 @@ productAddBtn.addEventListener("click", ()=>{
     let deleteBtn = document.createElement("img");
 
     productNameElement.innerHTML = newProductName;
-    productPriceElement.innerHTML = newProductPrice;
+    productPriceElement.innerHTML = `$${newProductPrice}`;
     editBtn.src = 'images/pencil-square.svg';
     deleteBtn.src = 'images/trash3-fill.svg';
+
+    deleteBtn.setAttribute("class", "delete-button");
+    editBtn.setAttribute("class", "edit-btn");
 
     displayDetail.appendChild(productNameElement);
     displayDetail.appendChild(productPriceElement);
@@ -68,36 +74,99 @@ productAddBtn.addEventListener("click", ()=>{
 
     totalBalance();
 
+    deleteBtn.addEventListener("click", (e)=>{
+        if(e.target.tagName === "IMG"){
+            const priceToRemove = parseFloat(
+                e.target.parentElement.querySelector("p:nth-child(2)").textContent.replace("$", "")
+            );
+            totalProductPrice -= priceToRemove;
+            e.target.parentElement.remove();
+            const totalDisplayElement = document.querySelector(".total-expense-value");
+                totalDisplayElement.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+            totalBalance();
+            saveBudgetDetail();
+        }
+    });
+
     
     editBtn.addEventListener("click", ()=>{
-        console.log(totalValue);
-        let updatedProductName = prompt("Enter new product name:", newProductName);
+        const editButtons = budgetDetailContainer.querySelector(".edit-btn");
+        editButtons.forEach(editbutton => {
+            editbutton.addEventListener("click", ()=> {
+                let updatedProductName = prompt("Enter new product name:", newProductName);
         let updatedProductPrice = parseFloat(
             prompt("Enter new product price:", newProductPrice)
         );
         if (!isNaN(updatedProductPrice) && updatedProductPrice >= 0) {
-            totalProductPrice -= newProductPrice; // Subtract the old price
-            totalProductPrice += updatedProductPrice; // Add the new price
+            const oldProductPrice = parseFloat(newProductPrice);
+            totalProductPrice += (updatedProductPrice - oldProductPrice);
+
 
             productNameElement.innerHTML = updatedProductName;
             productPriceElement.innerHTML = `$${updatedProductPrice.toFixed(2)}`;
 
-            newProductName = updatedProductName; // Update reference
-            newProductPrice = updatedProductPrice; // Update reference
+            newProductName = updatedProductName;
+            newProductPrice = updatedProductPrice;
 
             totalDisplayElement.innerHTML = `$${totalProductPrice.toFixed(2)}`;
             totalBalance();
+            saveDashBoard();
+            saveBudgetDetail();
         } else {
             alert("Invalid product price!");
         }
+            });
+        });
+        
     }); 
+
+    
+    
+    saveDashBoard();
+    saveBudgetDetail();
+
 
 });
 
 function totalBalance(){
     const totalBalanceElement = document.querySelector(".total-balance");
-    totalBalanceElement.innerHTML = totalValue - totalProductPrice ;
+    totalBalanceElement.innerHTML = `$${(totalValue - totalProductPrice).toFixed(2)}` ;
 }
 
-totalBalance
+function saveDashBoard() {
+    localStorage.setItem("savedboard", budgetDashBoard.innerHTML);
+}
+
+function showDashBoard() {
+    const savedBoard = localStorage.getItem("savedboard");
+    if(savedBoard) budgetDashBoard.innerHTML = savedBoard
+}
+
+function showBudgetDetail (){
+    const savedData = localStorage.getItem("savedbudget");
+    if(savedData) budgetDetailContainer.innerHTML = savedData;
+    const deleteButtons = budgetDetailContainer.querySelectorAll(".delete-button");
+    deleteButtons.forEach(deleteBtn =>{
+        deleteBtn.addEventListener("click", (e)=>{
+            if(e.target.tagName === "IMG"){
+                const priceToRemove = parseFloat(
+                    e.target.parentElement.querySelector("p:nth-child(2)").textContent.replace("$", "")
+                );
+                totalProductPrice -= priceToRemove;
+                e.target.parentElement.remove();
+                const totalDisplayElement = document.querySelector(".total-expense-value");
+                totalDisplayElement.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+                totalBalance();
+                saveBudgetDetail();
+            }
+        });
+    });
+}
+
+function saveBudgetDetail(){
+    localStorage.setItem ("savedbudget", budgetDetailContainer.innerHTML);
+}
+
+showDashBoard();
+showBudgetDetail();
 
