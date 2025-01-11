@@ -144,7 +144,16 @@ function showDashBoard() {
 
 function showBudgetDetail (){
     const savedData = localStorage.getItem("savedbudget");
+    const savedTotalProductPrice = localStorage.getItem("totalProductPrice");
     if(savedData) budgetDetailContainer.innerHTML = savedData;
+    if (savedTotalProductPrice) totalProductPrice = parseFloat(savedTotalProductPrice);
+
+    const totalDisplayElement = document.querySelector(".total-expense-value");
+    totalDisplayElement.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+
+    totalBalance();
+
+
     const deleteButtons = budgetDetailContainer.querySelectorAll(".delete-button");
     deleteButtons.forEach(deleteBtn =>{
         deleteBtn.addEventListener("click", (e)=>{
@@ -165,6 +174,7 @@ function showBudgetDetail (){
 
 function saveBudgetDetail(){
     localStorage.setItem ("savedbudget", budgetDetailContainer.innerHTML);
+    localStorage.setItem("totalProductPrice", totalProductPrice.toFixed(2));
 }
 
 showDashBoard();
